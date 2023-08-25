@@ -1,8 +1,6 @@
 package java8.stream;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,23 +74,45 @@ public class StreamDemo {
         //13.findFirst() - takes a predicate and return back the first matching value
         Employee employee1 = EmployeeDatabase.getAllEmpData().stream()
                 .filter(employee -> employee.getEmpName().contains("el")).findFirst().get();
-        System.out.println(employee1);
+//        System.out.println(employee1);
 
         //14.findAny() - takes a predicate and return an object which matches but mostly returns the first Object which matches the condition
         Employee employee2 = EmployeeDatabase.getAllEmpData().parallelStream()
                 .filter(employee -> employee.getEmpName().contains("el")).findAny().get();
-        System.out.println(employee2);
+//        System.out.println(employee2);
 
         //15.anyMatch() - returns a boolean when finding a matching an element
         boolean anyMatch = EmployeeDatabase.getAllEmpData().stream().anyMatch(employee -> employee.getEmpName().contains("ni"));
-        System.out.println(anyMatch);
+//        System.out.println(anyMatch);
 
         //16.allMatch() - returns a boolean when the predicate matches all the elements
         boolean allMatch = EmployeeDatabase.getAllEmpData().stream().allMatch(employee -> employee.getEmpName().contains("ie"));
-        System.out.println(allMatch);
+//        System.out.println(allMatch);
 
         //16.noMatch() - returns a boolean when the predicate matches nothing out of all the elements
         boolean noMatch = EmployeeDatabase.getAllEmpData().stream().noneMatch(employee -> employee.getEmpName().contains("po"));
-        System.out.println(noMatch);
+//        System.out.println(noMatch);
+
+        //17.Collectors(Grouping By)
+        //as List(default):
+        Map<Integer,List<Employee>> groupBy1 = EmployeeDatabase.getAllEmpData().stream().collect(
+                Collectors.groupingBy(Employee::getAge)
+        );
+        System.out.println(groupBy1);
+
+        //as Set:
+        Map<String,Set<Employee>> groupBy2 = EmployeeDatabase.getAllEmpData().stream().collect(
+                Collectors.groupingBy(Employee::getEmpName,Collectors.toSet())
+        );
+        System.out.println(groupBy2);
+
+        //Sorting:
+        Map<String,Set<Employee>> groupBy3 = EmployeeDatabase.getAllEmpData().stream().collect(
+                Collectors.groupingBy(Employee::getEmpName,TreeMap::new,Collectors.toSet())
+        );
+        System.out.println(groupBy3);
+
+
+
     }
 }

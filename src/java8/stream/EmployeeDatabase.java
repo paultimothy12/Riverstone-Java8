@@ -9,9 +9,9 @@ public class EmployeeDatabase {
     public static List<Employee> getAllEmpData() {
         return new ArrayList<>(
                 Arrays.asList(
-                        new Employee(1, "Sammie", 35),
-                        new Employee(2, "Daniel", 19),
-                        new Employee(3, "Noel", 34)
+                        new Employee(1, "Sammie", 35,23),
+                        new Employee(2, "Daniel", 19,25),
+                        new Employee(3, "Noelle", 34,23)
                 )
         );
     }
